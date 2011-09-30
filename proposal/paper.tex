@@ -1,0 +1,132 @@
+\documentstyle[12pt,psfig]{article}
+
+%set dimensions of columns, gap between columns, and space between paragraphs
+\setlength{\textheight}{8.75in}
+% \setlength{\columnsep}{2.0pc}
+\setlength{\textwidth}{6.8in}
+\setlength{\footheight}{0.0in}
+\setlength{\topmargin}{0.25in}
+\setlength{\headheight}{0.0in}
+\setlength{\headsep}{0.0in}
+\setlength{\oddsidemargin}{-.19in}
+\setlength{\parindent}{1pc}
+\renewcommand{\baselinestretch}{1.3}
+
+% change the section numbering format:
+% \renewcommand{\thesection}{\Alph{section}}  
+
+\begin{document}
+
+% \psfigurepath{FIG}
+
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\bit}{\begin{itemize}}
+\newcommand{\eit}{\end{itemize}}
+\newcommand{\goal}[1]{ {\noindent {$\Rightarrow$} \em {#1} } }
+\newcommand{\hide}[1]{}
+\newcommand{\comment}[1]{ {\footnotesize {#1} } }
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proof}{Proof}
+\newtheorem{defn}{Definition}
+\newtheorem{algo}{Algorithm}
+\newtheorem{observation}{Observation}
+
+% print DRAFT across each ps page
+% \special{!userdict begin /bop-hook{gsave 200 30 translate
+% 65 rotate /Times-Roman findfont 216 scalefont setfont 0 0 moveto 0.95
+% setgray (DRAFT) show grestore}def end}
+
+\title{Catchy Title}
+
+
+\author{ {\em John Smith} \\
+	    Dept. of Computer Science \\
+	    Carnegie Mellon University \\
+	    {\tt jsmith@cs.cmu.edu}
+	 \and
+	 {\em Tom Johnson} \\
+	     Dept. of Metaphysics \\
+	     Confusion State University \\
+	     {\tt tj@bla.csu.edu}
+        }
+
+
+\maketitle
+\begin{abstract}
+We solved an important problem,
+outperforming all previous attempts.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+\bit
+\item
+what is the problem
+\item
+what are the applications
+\eit
+
+\section{Survey}
+\label{sec:survey}
+All the solutions that
+have been proposed in the past!
+Example of citation: \cite{Aho75Fast}
+
+Table \ref{tab:symbols} gives a list of symbols used.
+\begin{table}[htb]
+\begin{center} 
+\begin{tabular}{|l | c | } \hline \hline 
+Symbol & Definition \\ \hline
+$\pi$ & 3.14 \\
+$f$  & frequency \\ \hline
+\end{tabular} 
+\end{center} 
+\caption{Symbol table}
+\label{tab:symbols} 
+ \end{table} 
+
+\section{Proposed Method}
+\label{sec:proposed}
+Our proposed method is as follows: ...
+
+
+
+
+
+
+\section{Experiments}
+\label{sec:experiments}
+We implemented our method
+and compared it with the older ones.
+The results are very promising.
+
+Figure \ref{fig:results} shows the results
+(and, actually, how to insert postscript files):
+\begin{figure}[htbf]
+\begin{center}
+\begin{tabular}{cc}
+     % uncomment the next lines, and give the right ps files
+     \psfig{figure=figs/data.ps,width=2in} &
+     \psfig{figure=figs/plot.ps,width=2in} \\
+    (a) & (b) 
+\end{tabular}
+\caption{A fictitious dataset (a) and its performance plot (b)}
+\label{fig:results}
+\end{center}
+\end{figure}
+
+\section{Conclusions}
+\label{sec:conclusions}
+The proposed method outperforms older approaches
+in speed and quality.
+
+\bibliography{christosref,other}
+\bibliographystyle{plain}
+\newpage
+\pagenumbering{roman}
+\tableofcontents
+
+
+\end{document}
