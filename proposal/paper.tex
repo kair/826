@@ -54,10 +54,6 @@
 
 
 \maketitle
-\begin{abstract}
-We solved an important problem,
-outperforming all previous attempts.
-\end{abstract}
 
 \section{Introduction}
 \label{sec:intro}
@@ -76,9 +72,6 @@ The scope of potential applications is considerable, and there is prior art in m
 \label{sec:survey}
 
 \subsection{Models}
-
-SPIRIT \cite{Papadimitriou2005} is an algorithm for discovering patterns in multiple streams of time-series data. This algorithm effectively tries to find correlations between the different data streams by performing principal component analysis on the the data covariance matrix. These principal components are modified and updated as each data sample is received at each time step while forgetting the samples. An interesting aspect of this algorithm is, anomaly detection which is done by detecting the changes in the number of principal components required to capture most of the energy in the signal.
-In \cite{Roweis1999} the authors describe a unifying model for Linear Gaussian Models which includes PCA, Kalman Filters, Gaussian Mixture Models, ICA etc. They describe a general linear state transition model along with a linear observation model corrupted by independent Gaussian noise. They describe general algorithms to do inference and also learn the parameters of the model.
 
 SPIRIT \cite{Papadimitriou2005} is an algorithm for discovering patterns in multiple streams of timeseries data. This algorithm effectively tries to find correlations between the different data streams by performing principal component analysis on the the data covariance matrix. These principal components are modified and updated as each data sample is received at each time step while forgetting the samples. An interesting aspect of this algorithm is, anomaly detection which is done by detecting the changes in the number of principal components required to capture most of the energy in the signal.
 In \cite{Roweis1999} the authors describe a unifying model for Linear Gaussian Models which includes PCA, Kalman Filters, Gaussian Mixture Models, ICA etc. They describe a general linear state transition model along with a linear observation model corrupted by independent Gaussian noise. They describe general algorithms to do inference and also learn the parameters of the model.
