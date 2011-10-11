@@ -77,8 +77,8 @@ The scope of potential applications is considerable, and there is prior art in m
 
 \subsection{Models}
 
-SPIRIT \cite{papadimitriou2005streaming} is an algorithm for discovering patterns in multiple streams of time-series data. This algorithm effectively tries to find correlations between the different data streams by performing principal component analysis on the the data covariance matrix. These principal components are modified and updated as each data sample is received at each time step while forgetting the samples. An interesting aspect of this algorithm is, anomaly detection which is done by detecting the changes in the number of principal components required to capture most of the energy in the signal.
-In \cite{roweis1999unifying} the authors describe a unifying model for Linear Gaussian Models which includes PCA, Kalman Filters, Gaussian Mixture Models, ICA etc. They describe a general linear state transition model along with a linear observation model corrupted by independent Gaussian noise. They describe general algorithms to do inference and also learn the parameters of the model.
+SPIRIT \cite{Papadimitriou2005} is an algorithm for discovering patterns in multiple streams of time-series data. This algorithm effectively tries to find correlations between the different data streams by performing principal component analysis on the the data covariance matrix. These principal components are modified and updated as each data sample is received at each time step while forgetting the samples. An interesting aspect of this algorithm is, anomaly detection which is done by detecting the changes in the number of principal components required to capture most of the energy in the signal.
+In \cite{Roweis1999} the authors describe a unifying model for Linear Gaussian Models which includes PCA, Kalman Filters, Gaussian Mixture Models, ICA etc. They describe a general linear state transition model along with a linear observation model corrupted by independent Gaussian noise. They describe general algorithms to do inference and also learn the parameters of the model.
 
 DynaMMo is an algorithm for reconstructing missing timeseries data by learning a linear dynamical model \cite{Li2009}. This general model is learned though belief propagation and EM, and generalizes SVD, linear interpolation, and Kalman filtering. The authors demonstrate that the method captures dynamics these special cases do not based on experimentation with period flow data and motion capture traces. We plan to evaluate one of the special cases (Kalman filtering) and consider scalable approaches, an area where general approaches DynaMMo currently suffer. The paper describes how to use the model for compression by intermittently storing model parameters, an approach we may consider.
 Feature Extraction
@@ -97,8 +97,8 @@ A workload prediction study \cite{Gmach2007} examines time-series measurement of
 
 PAL is an anomaly localization tool to detect faulty components in distributed applications. The key idea is firstly to monitor time-series metrics of each individual component of the distributed system and discover the change points (potentially some faulty behavior happen), and then correlated different change points based on time stamp to locate the real faulty component. Their algorithm has four steps: firstly, raw time series data needs to be smoothed. Kalman filter failed to capture the critical change points so they used 5-length moving average filter. The second step is to use CUSUM to find change points, and calculate the “separation level” of each change point (which measures the different of mean value of data points before the change point and after it). The outlier change points (whose separation level are outliers) is the critical change points.
 
-Another console logs mining paper \cite{xu2009} extracts specific features from unstructured logs of Hadoop system \cite{Hadoop} (A distributed system for data intensive computing) and use them to detect anomalies in the system. The tool is mainly used to detect “correctness” problems. The author combines logs and source to extract three different signals: “message types”, “state variables”, and “message identifiers”. Based on these signals, they create two matrices: one matrix has “state variables” as the column, and time as the row, the other matrix uses “message types” as the column, and “message identifiers” as the row. Finally, PCA is used for anomaly detection. They perform PCA on the two matrices to get a reduced set of dimensions (eigenvectors) ranked by how much variance in the data each reduced dimension explains. Anomalous rows are identified by flagging those rows whose data is largely unexplained by the first K eigenvectors, which describes 95\% of the overall observed variance. 
-After finding the anomalous rows, human need to manually interpret and further digging the root causes. In \cite{xu2010}, they further applied their algorithms into some of Google’s production logs. Since the data is large which makes it unrealistic to perform PCA, they used frequent mining techniques to segment the long-lasting sequence into sessions.
+Another console logs mining paper \cite{xu2009} extracts specific features from unstructured logs of Hadoop system \cite{ApacheSoftwareFoundation2011} (A distributed system for data intensive computing) and use them to detect anomalies in the system. The tool is mainly used to detect “correctness” problems. The author combines logs and source to extract three different signals: “message types”, “state variables”, and “message identifiers”. Based on these signals, they create two matrices: one matrix has “state variables” as the column, and time as the row, the other matrix uses “message types” as the column, and “message identifiers” as the row. Finally, PCA is used for anomaly detection. They perform PCA on the two matrices to get a reduced set of dimensions (eigenvectors) ranked by how much variance in the data each reduced dimension explains. Anomalous rows are identified by flagging those rows whose data is largely unexplained by the first K eigenvectors, which describes 95\% of the overall observed variance. 
+After finding the anomalous rows, human need to manually interpret and further digging the root causes. In \cite{Xu}, they further applied their algorithms into some of Google’s production logs. Since the data is large which makes it unrealistic to perform PCA, they used frequent mining techniques to segment the long-lasting sequence into sessions.
 
 \section{Proposed Method}
 \label{sec:method}
@@ -109,7 +109,7 @@ The data sets is mainly collected from two data centers: OpenCloud and DCO (?). 
 
 \subsection{Models}
 \label{sec:method:models}
-We will begin by using two existing correlation-based models on our dataset. One is SPIRIT, an incremental PCA approach that adapts the number of hidden variables \cite{Papdimitriou2005}. The datasets we consider are significantly less periodic and more bursty than the ones explored in the SPIRIT paper, and we may need to adjust the approach accordingly.
+We will begin by using two existing correlation-based models on our dataset. One is SPIRIT, an incremental PCA approach that adapts the number of hidden variables \cite{Papadimitriou2005}. The datasets we consider are significantly less periodic and more bursty than the ones explored in the SPIRIT paper, and we may need to adjust the approach accordingly.
 
 Another approach that we consider to learn a model for time series collected in a computer cluster is Kalman Filtering. Kalman Filter models are popularly used for time series modeling. \emph{Dynamic Data}, where temporal ordering of the data samples is important. The dynamic generative model given below, captures the state evolution dynamics of the data.
 
@@ -146,8 +146,8 @@ After validating the right model for our timeseries data from the data center, w
 \bf Member & \bf Project Portion & \bf Papers Read \\
 Yoshihisa Abe & & \cite{Zhu2002}, \cite{Zhu2003}, \cite{Sakurai2011} \\
 Ilari Shafer & IPCA application/extension, scalability & \cite{Li2009}, \cite{Gmach2007}, \cite{Lavrenko2000} \\
-Kai Ren & Data Collection + Preparation, Anomaly Detection Experiment &  \cite{xu2009}, \cite{xu2010}, \cite{nguyen2011} \\
-Vishnu Boddeti & Kalman Filter Models & \cite{papadimitriou2005streaming}, \cite{roweis1999unifying}
+Kai Ren & Data Collection + Preparation, Anomaly Detection Experiment &  \cite{xu2009}, \cite{Xu}, \cite{nguyen2011} \\
+Vishnu Boddeti & Kalman Filter Models & \cite{Papadimitriou2005}, \cite{Roweis1999}
 \end{tabular}
 
 \section{Timeline}
@@ -160,7 +160,7 @@ A rough timeline of the project follows.
 \item[December 9] Address anomaly insertion, clean up loose ends, prepare demo
 \end{description}
 
-\bibliography{christosref,other}
+\bibliography{proposal}
 \bibliographystyle{plain}
 \newpage
 \pagenumbering{roman}
