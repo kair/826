@@ -100,47 +100,53 @@ PAL is an anomaly localization tool to detect faulty components in distributed a
 Another console logs mining paper \cite{xu2009} extracts specific features from unstructured logs of Hadoop system \cite{Hadoop} (A distributed system for data intensive computing) and use them to detect anomalies in the system. The tool is mainly used to detect “correctness” problems. The author combines logs and source to extract three different signals: “message types”, “state variables”, and “message identifiers”. Based on these signals, they create two matrices: one matrix has “state variables” as the column, and time as the row, the other matrix uses “message types” as the column, and “message identifiers” as the row. Finally, PCA is used for anomaly detection. They perform PCA on the two matrices to get a reduced set of dimensions (eigenvectors) ranked by how much variance in the data each reduced dimension explains. Anomalous rows are identified by flagging those rows whose data is largely unexplained by the first K eigenvectors, which describes 95\% of the overall observed variance. 
 After finding the anomalous rows, human need to manually interpret and further digging the root causes. In \cite{xu2010}, they further applied their algorithms into some of Google’s production logs. Since the data is large which makes it unrealistic to perform PCA, they used frequent mining techniques to segment the long-lasting sequence into sessions.
 
-
 \section{Proposed Method}
-\label{sec:proposed}
-Our proposed method is as follows: ...
+\label{sec:method}
 
+\subsection{Data Collection}
+\label{sec:method:data}
+The data sets is mainly collected from two data centers: OpenCloud and DCO (?). OpenCloud is a CMU-based academic cluster consisting of 64 compute nodes, each with dual quad-core 2.83GHz Intel Xeon processors, 16GB memory and a 10GigE NIC, and Arista 10 GigE switches. OpenCluster mainly runs distributed services like Hadoop file systems and map reduce systems. We are collecting OS-level metrics and Hadoop system logs per 5 seconds, and have data over several months.
 
+\subsection{Models}
+\label{sec:method:models}
+We will begin by using two existing correlation-based models on our dataset. One is SPIRIT, an incremental PCA approach that adapts the number of hidden variables \cite{Papdimitriou2005}. The datasets we consider are significantly less periodic and more bursty than the ones explored in the SPIRIT paper, and we may need to adjust the approach accordingly.
 
+Another approach that we consider to learn a model for time series collected in a computer cluster is Kalman Filtering. Kalman Filter models are popularly used for time series modeling. \emph{Dynamic Data}, where temporal ordering of the data samples is important. The dynamic generative model given below, captures the state evolution dynamics of the data.
 
+\begin{eqnarray}
+x_{t+1} &=& Ax_t + w \\
+y_t  &=& Cx_t + v
+\end{eqnarray}
 
+where A is the state transition matrix, C captures the observation model, w ~ N(0,Q) and v ~ N(0,R) are the state evolution and observation noise models respectively. The two main sub-problems associated with learning these models are \emph{inference} and \emph{parameter learning}. Inference deals with issues of estimating the unknown hidden variables given some observations and a given fixed model parameters. Parameter learning pertains to estimating the model parameters given only the  observations. The Expectation-Maximization (EM) algorithm is commonly used for parameter learning, while inference is done via maximum likelihood estimation.
 
-\section{Experiments}
-\label{sec:experiments}
-We implemented our method
-and compared it with the older ones.
-The results are very promising.
+Again as mentioned above, we will treat the multi-aspect data of the computing cluster in two different ways,
 
-Figure \ref{fig:results} shows the results
-(and, actually, how to insert postscript files):
-\begin{figure}[htbf]
-\begin{center}
-\begin{tabular}{cc}
-     % uncomment the next lines, and give the right ps files
-     \psfig{figure=figs/data.ps,width=2in} &
-     \psfig{figure=figs/plot.ps,width=2in} \\
-    (a) & (b) 
-\end{tabular}
-\caption{A fictitious dataset (a) and its performance plot (b)}
-\label{fig:results}
-\end{center}
-\end{figure}
+\begin{itemize}
+\item Run kalman filtering on the different data streams from each machine individually.
+\item Aggregate the data streams from all the machines to get a cluster level model for the data streams.
+\end{itemize}
 
-\section{Conclusions}
-\label{sec:conclusions}
-The proposed method outperforms older approaches
-in speed and quality.
+In addition to learning a model and using it to predict future patterns, we plan to do an analysis on existing data to observe important trends, such as bursts and repetitive patterns. Our main challenge in this problem is to deal with large data sets efficiently and flexibly. Our proposed direction is to build on the burst detection technique by Zhu et al. \cite{Zhu2003} and learn trends at different time scales and possibly with varied granularity of data aggregation across data center nodes.
+Preprocessing
+
+\subsection{Feature Extraction}
+\label{sec:method:features}
+We will perform two types of preprocessing on the raw data to produce candidate input that suits the filters we are testing. One is the log transform, in order to smooth high spikes expected in the data. The other is wavelet conversion, which would also be used for burst detection under different time windows.
+
+\subsection{Scalability}
+\label{sec:method:scale}
+2) Large scale / parallel - once we pick one that seems to work well (Ilari)
+   Can we get it running on Hadoop?
+   Parallelizing implementation
+
+\subsection{Anomaly Detection}
+\label{sec:method:anomaly}
+After validating the right model for our timeseries data from the data center, we plan to apply the model and combine it with anomaly detection algorithm. The first stage is to manually inject failures to tune the model to find out the anomalies. Later on, we can apply the algorithms on historical data from OpenCloud data center to test whether the algorithm can find anomalies in the system.
 
 \bibliography{christosref,other}
 \bibliographystyle{plain}
 \newpage
 \pagenumbering{roman}
-\tableofcontents
-
 
 \end{document}
