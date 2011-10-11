@@ -141,6 +141,16 @@ As a second phase of the project, we plan to choose the model that works best fo
 \label{sec:method:anomaly}
 After validating the right model for our timeseries data from the data center, we plan to apply the model and combine it with anomaly detection algorithm. The first stage is to manually inject failures to tune the model to find out the anomalies. Later on, we can apply the algorithms on historical data from OpenCloud data center to test whether the algorithm can find anomalies in the system.
 
+\section{Plan of Work}
+\begin{tabular}{lll}
+\bf Member & \bf Project Portion & \bf Papers Read \\
+Yoshihisa Abe & & \cite{Zhu2002}, \cite{Zhu2003}, \cite{Sakurai2011} \\
+Ilari Shafer & IPCA application/extension, scalability & \cite{Li2009}, \cite{Gmach2007}, \cite{Lavrenko2000} \\
+Kai Ren & Data Collection and Preparation, Anomaly Detection Experiment &  \cite{xu2009}, \cite{xu2010}, \cite{nguyen2011} \\
+Vishnu Boddeti & Kalman Filter Models & \cite{papadimitriou2005streaming}, \cite{roweis1999unifying}
+\end{tabular}
+
+
 \bibliography{christosref,other}
 \bibliographystyle{plain}
 \newpage
