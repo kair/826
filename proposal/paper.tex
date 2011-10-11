@@ -128,7 +128,6 @@ Again as mentioned above, we will treat the multi-aspect data of the computing c
 \end{itemize}
 
 In addition to learning a model and using it to predict future patterns, we plan to do an analysis on existing data to observe important trends, such as bursts and repetitive patterns. Our main challenge in this problem is to deal with large data sets efficiently and flexibly. Our proposed direction is to build on the burst detection technique by Zhu et al. \cite{Zhu2003} and learn trends at different time scales and possibly with varied granularity of data aggregation across data center nodes.
-Preprocessing
 
 \subsection{Feature Extraction}
 \label{sec:method:features}
@@ -136,9 +135,7 @@ We will perform two types of preprocessing on the raw data to produce candidate 
 
 \subsection{Scalability}
 \label{sec:method:scale}
-2) Large scale / parallel - once we pick one that seems to work well (Ilari)
-   Can we get it running on Hadoop?
-   Parallelizing implementation
+As a second phase of the project, we plan to choose the model that works best for our data on the basis of how accurately it can provide short-term predictions. As observed above, the primary challenge for many of these algorithms is efficiency and scale. Though the precise steps we will take to improve algorithm scalability at this point are ill-defined, we do plan to investigate scalability and consider implementation on Hadoop (perhaps with simple sharding of the data).
 
 \subsection{Anomaly Detection}
 \label{sec:method:anomaly}
